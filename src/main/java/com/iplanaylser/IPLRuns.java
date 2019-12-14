@@ -64,4 +64,8 @@ public class IPLRuns {
         this.fours = fours;
         this.sixes = sixes;
     }
+
+    public IPLRuns(IPLRuns iplRuns) {
+
+    }
 }

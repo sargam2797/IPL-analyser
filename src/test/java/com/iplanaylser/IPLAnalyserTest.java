@@ -3,6 +3,8 @@ package com.iplanaylser;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Map;
+
 public class IPLAnalyserTest {
     private static final String IPL_MOST_RUNS_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/resources" +
             "/IPL2019FactsheetMostRuns.csv";
@@ -14,13 +16,18 @@ public class IPLAnalyserTest {
             "resources/IPL2019FactsheetMostRuns.txt";
     private static final String IPL_MOST_RUNS_DELIMITER_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/" +
             "resources/IPL2019FactsheetMostRunsDelimiter.csv";
-    private static final String IPL_MOST_RUNS_HEADER_CSV_FILE_PATH = "";
+    private static final String IPL_MOST_RUNS_HEADER_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/" +
+            "resources/IPL2019FactsheetMostRunsHeader.csv";
+    private static final String IPL_MOST_RUNS_EMPTY_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/" +
+            "resources/IPL2019FactsheetMostRunsEmpty.csv";
+    private static final String SAMPLE_IPL_DATA_CSV_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/resources/" +
+            "sampleIPLData.csv";
 
     @Test
     public void givenIPLMostRunsData_ReturnsExactNoOfPlayersCount() {
         try {
-            int playerCount = new IPLAnalyser().loadIPLData(IPL_MOST_RUNS_CSV_FILE_PATH);
-            Assert.assertEquals(101,playerCount);
+            Map playerCount = new IPLAnalyser().loadIPLData(IPL_MOST_RUNS_CSV_FILE_PATH);
+            Assert.assertEquals(100,playerCount.size());
         } catch (IPLAnalyserException e) {
         }
     }
@@ -56,6 +63,15 @@ public class IPLAnalyserTest {
     public void givenCorrectIPLMostRunsCSVFile_ButMissingHeaders_ShouldThrowIPLAnalyserException() {
         try {
             new IPLAnalyser().loadIPLData(IPL_MOST_RUNS_HEADER_CSV_FILE_PATH);
+        } catch (IPLAnalyserException e) {
+            Assert.assertEquals(IPLAnalyserException.ExceptionType.ISSUE_RELATED_TO_FILE, e.type);
+        }
+    }
+
+    @Test
+    public void givenEmptyIPLMostRunsCSVFile_ButMissingHeaders_ShouldThrowIPLAnalyserException() {
+        try {
+            new IPLAnalyser().loadIPLData(IPL_MOST_RUNS_EMPTY_CSV_FILE_PATH);
         } catch (IPLAnalyserException e) {
             Assert.assertEquals(IPLAnalyserException.ExceptionType.ISSUE_RELATED_TO_FILE, e.type);
         }
