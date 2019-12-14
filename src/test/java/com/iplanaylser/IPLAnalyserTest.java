@@ -1,5 +1,6 @@
 package com.iplanaylser;
 
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,8 +27,8 @@ public class IPLAnalyserTest {
     @Test
     public void givenIPLMostRunsData_ReturnsExactNoOfPlayersCount() {
         try {
-            Map playerCount = new IPLAnalyser().loadIPLData(IPL_MOST_RUNS_CSV_FILE_PATH);
-            Assert.assertEquals(100,playerCount.size());
+            Map playerCount = new IPLAnalyser().loadIPLData(SAMPLE_IPL_DATA_CSV_PATH);
+            Assert.assertEquals(8,playerCount.size());
         } catch (IPLAnalyserException e) {
         }
     }
@@ -76,4 +77,18 @@ public class IPLAnalyserTest {
             Assert.assertEquals(IPLAnalyserException.ExceptionType.ISSUE_RELATED_TO_FILE, e.type);
         }
     }
+
+    @Test
+    public void givenIPLMostRunsSampleData_ShouldReturnHighestThePlayerWithHighestBattingAverage() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLData(SAMPLE_IPL_DATA_CSV_PATH);
+            String sortbyBattingAverage = iplAnalyser.sortbyFields(SortingFields.Parameter.AVERAGE);
+            IPLRuns[] iplRuns = new Gson().fromJson(sortbyBattingAverage, IPLRuns[].class);
+            Assert.assertEquals("MS Dhoni",iplRuns[0].player);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
