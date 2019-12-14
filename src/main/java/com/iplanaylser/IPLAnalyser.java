@@ -12,21 +12,23 @@ import java.util.Iterator;
 import java.util.stream.StreamSupport;
 
 public class IPLAnalyser {
-
     public int loadIPLData(String csvFilePath) throws IPLAnalyserException {
+        int playerCount = 0;
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             ICSvBuilder csvBuilder = CSVBuilderFactory.createCsvBuilder();
             Iterator<IPLRuns> iplCSVIterator = csvBuilder.getFileByIterator(reader, IPLRuns.class);
             Iterable<IPLRuns> csvIterable = () -> iplCSVIterator;
-            int playerCount = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
-            return playerCount;
+            playerCount = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
         } catch (IOException e) {
             throw new IPLAnalyserException("invalid file path",
                     IPLAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (CsvBuilderException e) {
             e.printStackTrace();
+        } catch (RuntimeException e) {
+                throw new IPLAnalyserException("delimiter or header issue in csv file",
+                        IPLAnalyserException.ExceptionType.ISSUE_RELATED_TO_FILE);
         }
-        return 0;
+        return playerCount;
     }
 }
