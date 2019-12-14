@@ -16,9 +16,7 @@ import java.util.stream.StreamSupport;
 public class IPLAnalyser {
     Map<String,IPLRuns> iplRunsMap = new HashMap<>();
     public Map loadIPLData(String csvFilePath) throws IPLAnalyserException {
-
-        try {
-            Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
+        try ( Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));){
             ICSvBuilder csvBuilder = CSVBuilderFactory.createCsvBuilder();
             Iterator<IPLRuns> iplCSVIterator = csvBuilder.getFileByIterator(reader, IPLRuns.class);
             Iterable<IPLRuns> csvIterable = () -> iplCSVIterator;
