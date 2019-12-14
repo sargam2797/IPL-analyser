@@ -9,6 +9,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.stream.StreamSupport;
 
 public class IPLAnalyser {
 
@@ -17,15 +18,12 @@ public class IPLAnalyser {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             ICSvBuilder csvBuilder = CSVBuilderFactory.createCsvBuilder();
             Iterator<IPLRuns> iplCSVIterator = csvBuilder.getFileByIterator(reader, IPLRuns.class);
-            int playerCount = 0;
-            while (iplCSVIterator.hasNext()) {
-                playerCount++;
-                IPLRuns iplRuns = iplCSVIterator.next();
-            }
+            Iterable<IPLRuns> csvIterable = () -> iplCSVIterator;
+            int playerCount = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
             return playerCount;
+        } catch (IOException ex) {
+            ex.printStackTrace();
         } catch (CsvBuilderException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
         return 0;
