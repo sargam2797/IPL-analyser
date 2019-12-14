@@ -13,7 +13,7 @@ import java.util.stream.StreamSupport;
 
 public class IPLAnalyser {
 
-    public int loadIPLData(String csvFilePath) {
+    public int loadIPLData(String csvFilePath) throws IPLAnalyserException {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             ICSvBuilder csvBuilder = CSVBuilderFactory.createCsvBuilder();
@@ -21,8 +21,9 @@ public class IPLAnalyser {
             Iterable<IPLRuns> csvIterable = () -> iplCSVIterator;
             int playerCount = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
             return playerCount;
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            throw new IPLAnalyserException("invalid file path",
+                    IPLAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (CsvBuilderException e) {
             e.printStackTrace();
         }

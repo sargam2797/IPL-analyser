@@ -6,10 +6,24 @@ import org.junit.Test;
 public class IPLAnalyserTest {
     private static final String IPL_MOST_RUNS_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/resources" +
             "/IPL2019FactsheetMostRuns.csv";
+
+    private static final String IPL_MOST_RUNS_WRONG_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/resources" +
+            "/IPL2019FactsheetMostRuns1.csv";
     @Test
     public void givenIPLMostRunsData_ReturnsExactNoOfPlayersCount() {
-        IPLAnalyser iplAnalyser = new IPLAnalyser();
-        int playerCount = iplAnalyser.loadIPLData(IPL_MOST_RUNS_CSV_FILE_PATH);
-        Assert.assertEquals(101,playerCount);
+        try {
+            int playerCount = new IPLAnalyser().loadIPLData(IPL_MOST_RUNS_CSV_FILE_PATH);
+            Assert.assertEquals(101,playerCount);
+        } catch (IPLAnalyserException e) {
+        }
+    }
+
+    @Test
+    public void givenWrongIPLMostRunsCSVFile_ShouldThrowIPLAnalyserException() {
+        try {
+            new IPLAnalyser().loadIPLData(IPL_MOST_RUNS_WRONG_CSV_FILE_PATH);
+        } catch (IPLAnalyserException e) {
+            Assert.assertEquals(IPLAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }
     }
 }
