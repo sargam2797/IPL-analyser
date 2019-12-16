@@ -26,6 +26,9 @@ public class IPLAnalyser {
         Comparator<IPLDAO> comparatorForAverage = Comparator.comparing(compare -> compare.average);
         this.sortByFields.put(SortingFields.BEST_AVERAGE_WITH_STRIKE_RATE, comparatorForAverage.thenComparing(compare ->
                 compare.strikeRate).reversed());
+        Comparator<IPLDAO> comparatorForRuns = Comparator.comparing(compare -> compare.runs);
+        this.sortByFields.put(SortingFields.MAX_RUNS_WITH_BEST_AVERAGE, comparatorForRuns.thenComparing(compare ->
+                compare.average).reversed());
     }
 
     public void loadIPLData(String csvFilePath) throws IPLAnalyserException {
