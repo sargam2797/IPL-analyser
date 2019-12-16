@@ -5,31 +5,36 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class IPLAnalyser {
-    Map<String,IPLDAO> iplRunsMap = null;
-    Map<SortingFields, Comparator<IPLDAO>> fields ;
+    private Map<String,IPLDAO> iplRunsMap = new HashMap<>();
+    private Map<SortingFields, Comparator<IPLDAO>> sortByFields;
 
     public IPLAnalyser() {
-        this.fields = new HashMap<>();
-        this.fields.put(SortingFields.AVERAGE, Comparator.comparing(census ->
-                census.average, Comparator.reverseOrder()));
-        this.fields.put(SortingFields.STRIKING_RATE, Comparator.comparing(census ->
-                census.strikeRate, Comparator.reverseOrder()));
-        this.fields.put(SortingFields.MAX_4s_AND_6s, Comparator.comparing(census -> (census.numberOfFours*4+census
-                .numberOfSixes*6), Comparator.reverseOrder()));
-        this.fields.put(SortingFields.MAX_4s_AND_6s_WITH_BEST_STRIKING_RATE, Comparator.comparing(census ->
-                ((census.numberOfFours*4+census
-                .numberOfSixes*6))/((census.numberOfFours+census.numberOfSixes)*100), Comparator.reverseOrder()));
+        setSortByFields();
     }
 
-    public int loadIPLData(String csvFilePath) throws IPLAnalyserException {
-        IPLLoader iplLoader = LoadIPLDataProvider.getObject();
-        iplRunsMap = iplLoader.loadIPLData(csvFilePath);
-        return iplRunsMap.size();
+    public void setSortByFields() {
+        this.sortByFields = new HashMap<>();
+        this.sortByFields.put(SortingFields.AVERAGE, Comparator.comparing(census ->
+                census.average, Comparator.reverseOrder()));
+        this.sortByFields.put(SortingFields.STRIKING_RATE, Comparator.comparing(census ->
+                census.strikeRate, Comparator.reverseOrder()));
+        this.sortByFields.put(SortingFields.MAX_4s_AND_6s, Comparator.comparing(census -> (census.numberOfFours*4+census
+                .numberOfSixes*6), Comparator.reverseOrder()));
+        this.sortByFields.put(SortingFields.MAX_4s_AND_6s_WITH_BEST_STRIKING_RATE, Comparator.comparing(census ->
+                ((census.numberOfFours*4+census
+                .numberOfSixes*6))/((census.numberOfFours+census.numberOfSixes)*100), Comparator.reverseOrder()));
+        Comparator<IPLDAO> comparatorForAverage = Comparator.comparing(compare -> compare.average);
+        this.sortByFields.put(SortingFields.BEST_AVERAGE_WITH_STRIKE_RATE, comparatorForAverage.thenComparing(compare ->
+                compare.strikeRate).reversed());
+    }
+
+    public void loadIPLData(String csvFilePath) throws IPLAnalyserException {
+        iplRunsMap = new IPLLoader().loadIPLData(csvFilePath);
     }
 
     public String sortByFields(SortingFields parameter) {
         ArrayList getDTO = this.iplRunsMap.values().stream()
-                .sorted(this.fields.get(parameter))
+                .sorted(this.sortByFields.get(parameter))
                 .map(censusDAO -> censusDAO.getIPLDTO(censusDAO))
                 .collect(Collectors.toCollection(ArrayList::new));
         String sortIplToJson = new Gson().toJson(getDTO);
