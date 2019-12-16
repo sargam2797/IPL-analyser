@@ -18,6 +18,7 @@ public class IPLAnalyserTest {
             IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
             Assert.assertEquals("MS Dhoni",iplRuns[0].player);
         } catch (IPLAnalyserException e) {
+            e.printStackTrace();
         }
     }
 }

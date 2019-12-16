@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 
 public class IPLLoader {
-    Map<String,IPLRuns> iplRunsMap;
+    Map<String,IPLDAO> iplRunsMap;
 
     public IPLLoader() {
         this.iplRunsMap = new HashMap<>();
@@ -27,7 +27,7 @@ public class IPLLoader {
             Iterable<IPLRuns> csvIterable = () -> iplCSVIterator;
             StreamSupport.stream(csvIterable.spliterator(),false)
                     .map(IPLRuns.class::cast)
-                    .forEach(iplRuns -> this.iplRunsMap.put(iplRuns.player, iplRuns));
+                    .forEach(iplRunsDao -> this.iplRunsMap.put(iplRunsDao.player,  new IPLDAO(iplRunsDao)));
             return iplRunsMap;
         } catch (IOException e) {
             throw new IPLAnalyserException("invalid file path"+e.getMessage(),

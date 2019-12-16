@@ -28,6 +28,7 @@ public class IPLLoaderTest {
             Map playerCount = new IPLLoader().loadIPLData(IPL_MOST_RUNS_CSV_FILE_PATH);
             Assert.assertEquals(100,playerCount.size());
         } catch (IPLAnalyserException e) {
+            e.printStackTrace();
         }
     }
 

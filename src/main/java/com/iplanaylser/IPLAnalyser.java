@@ -6,12 +6,13 @@ import java.util.stream.Collectors;
 
 public class IPLAnalyser {
 
-    Map<String,IPLRuns> iplRunsMap = null;
-    Map<SortingFields, Comparator<IPLRuns>> fields = new HashMap<>();
+    Map<String,IPLDAO> iplRunsMap = null;
+    Map<SortingFields, Comparator<IPLDAO>> fields ;
 
     public IPLAnalyser() {
+        this.fields = new HashMap<>();
         this.fields.put(SortingFields.AVERAGE, Comparator.comparing(census ->
-                census.avg, Comparator.reverseOrder()));
+                census.average, Comparator.reverseOrder()));
     }
 
     public int loadIPLData(String csvFilePath) throws IPLAnalyserException {
@@ -21,10 +22,11 @@ public class IPLAnalyser {
     }
 
     public String sortByFields(SortingFields parameter) {
-        ArrayList<IPLRuns> list = this.iplRunsMap.values().stream()
+        ArrayList getDTO = this.iplRunsMap.values().stream()
                 .sorted(this.fields.get(parameter))
+                .map(censusDAO -> censusDAO.getIPLDTO(censusDAO))
                 .collect(Collectors.toCollection(ArrayList::new));
-        String sortIplToJson = new Gson().toJson(list);
+        String sortIplToJson = new Gson().toJson(getDTO);
         return sortIplToJson;
     }
 }

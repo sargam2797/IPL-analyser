@@ -2,9 +2,10 @@ package com.iplanaylser;
 
 import com.opencsv.bean.CsvBindByName;
 
-import java.util.stream.Stream;
-
 public class IPLRuns {
+    public IPLRuns(String playerName, int matchPlayed, double average, double strikeRate, int numberOf4sScored, int numberOf6sScored) {
+    }
+
     public IPLRuns() {
     }
 
@@ -66,4 +67,14 @@ public class IPLRuns {
         this.fours = iplRuns.fours;
         this.sixes = iplRuns.sixes;
     }
+    public IPLRuns(IPLDAO ipldao) {
+
+        this.match = ipldao.matchPlayed;
+        this.fours = ipldao.numberOfFours;
+        this.sixes = ipldao.numberOfSixes;
+        this.avg = ipldao.average;
+        this.player = ipldao.playerName;
+        this.strikeRate = ipldao.strikeRate;
+    }
+
 }
