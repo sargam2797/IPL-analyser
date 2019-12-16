@@ -21,8 +21,7 @@ public class IPLAnalyser {
         this.sortByFields.put(SortingFields.MAX_4s_AND_6s, Comparator.comparing(census -> (census.numberOfFours*4+census
                 .numberOfSixes*6), Comparator.reverseOrder()));
         this.sortByFields.put(SortingFields.MAX_4s_AND_6s_WITH_BEST_STRIKING_RATE, Comparator.comparing(census ->
-                ((census.numberOfFours*4+census
-                .numberOfSixes*6))/((census.numberOfFours+census.numberOfSixes)*100), Comparator.reverseOrder()));
+                ((census.numberOfFours*4+census.numberOfSixes*6))/(census.ballsFaced), Comparator.reverseOrder()));
         Comparator<IPLDAO> comparatorForAverage = Comparator.comparing(compare -> compare.average);
         this.sortByFields.put(SortingFields.BEST_AVERAGE_WITH_STRIKE_RATE, comparatorForAverage.thenComparing(compare ->
                 compare.strikeRate).reversed());
