@@ -13,6 +13,8 @@ public class IPLAnalyser {
         this.fields = new HashMap<>();
         this.fields.put(SortingFields.AVERAGE, Comparator.comparing(census ->
                 census.average, Comparator.reverseOrder()));
+        this.fields.put(SortingFields.STRIKING_RATE, Comparator.comparing(census ->
+                census.strikeRate, Comparator.reverseOrder()));
     }
 
     public int loadIPLData(String csvFilePath) throws IPLAnalyserException {
