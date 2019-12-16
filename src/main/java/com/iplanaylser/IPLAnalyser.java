@@ -16,6 +16,9 @@ public class IPLAnalyser {
                 census.strikeRate, Comparator.reverseOrder()));
         this.fields.put(SortingFields.MAX_4s_AND_6s, Comparator.comparing(census -> (census.numberOfFours*4+census
                 .numberOfSixes*6), Comparator.reverseOrder()));
+        this.fields.put(SortingFields.MAX_4s_AND_6s_WITH_BEST_STRIKING_RATE, Comparator.comparing(census ->
+                ((census.numberOfFours*4+census
+                .numberOfSixes*6))/((census.numberOfFours+census.numberOfSixes)*100), Comparator.reverseOrder()));
     }
 
     public int loadIPLData(String csvFilePath) throws IPLAnalyserException {
