@@ -14,8 +14,8 @@ public class IPLAnalyserTest {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIPLData(SAMPLE_IPL_DATA_CSV_PATH);
-            String sortbyBattingAverage = iplAnalyser.sortByFields(SortingFields.Parameter.AVERAGE);
-            IPLRuns[] iplRuns = new Gson().fromJson(sortbyBattingAverage, IPLRuns[].class);
+            String sortByAverage = iplAnalyser.sortByFields(SortingFields.AVERAGE);
+            IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
             Assert.assertEquals("MS Dhoni",iplRuns[0].player);
         } catch (IPLAnalyserException e) {
         }
