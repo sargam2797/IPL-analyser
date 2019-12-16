@@ -73,4 +73,17 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPLMostRunsSampleData_ShouldReturnThePlayerWithMaxRuns_WithBestAverage() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLData(SAMPLE_IPL_DATA_CSV_PATH);
+            String sortByAverage = iplAnalyser.sortByFields(SortingFields.MAX_RUNS_WITH_BEST_AVERAGE);
+            IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
+            Assert.assertEquals("David Warner ",iplRuns[0].player);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
