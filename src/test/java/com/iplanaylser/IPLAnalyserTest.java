@@ -34,4 +34,17 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPLMostRunsSampleData_ShouldReturnThePlayerWithHighest6sAnd4s() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLData(SAMPLE_IPL_DATA_CSV_PATH);
+            String sortByAverage = iplAnalyser.sortByFields(SortingFields.MAX_4s_AND_6s);
+            IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
+            Assert.assertEquals("Andre Russell",iplRuns[0].player);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
