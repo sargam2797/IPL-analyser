@@ -5,7 +5,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class IPLAnalyser {
-
     Map<String,IPLDAO> iplRunsMap = null;
     Map<SortingFields, Comparator<IPLDAO>> fields ;
 
@@ -15,6 +14,8 @@ public class IPLAnalyser {
                 census.average, Comparator.reverseOrder()));
         this.fields.put(SortingFields.STRIKING_RATE, Comparator.comparing(census ->
                 census.strikeRate, Comparator.reverseOrder()));
+        this.fields.put(SortingFields.MAX_4s_AND_6s, Comparator.comparing(census -> (census.numberOfFours*4+census
+                .numberOfSixes*6), Comparator.reverseOrder()));
     }
 
     public int loadIPLData(String csvFilePath) throws IPLAnalyserException {

@@ -1,7 +1,7 @@
 package com.iplanaylser;
 
 public enum  SortingFields {
-    AVERAGE
+    AVERAGE, MAX_4s_AND_6s, STRIKING_RATE
 }
 
 
