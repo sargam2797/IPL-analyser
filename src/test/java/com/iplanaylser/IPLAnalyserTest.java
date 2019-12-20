@@ -181,12 +181,26 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+
     @Test
     public void givenIPLMostWicketsSampleData_ShouldReturnThePlayerWithTopBowlingAverage() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,SAMPLE_IPL_WICKETS_DATA_CSV_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.AVERAGE);
+            IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
+            Assert.assertEquals("Krishnappa Gowtham",iplWickets[0].playerName);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPLMostWicketsSampleData_ShouldReturnThePlayerWithTopStrikingRatesBowler() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
+            iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,SAMPLE_IPL_WICKETS_DATA_CSV_PATH);
+            String sortByAverage = iplAnalyser.sortByFields(SortingFields.STRIKING_RATE);
             IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
             Assert.assertEquals("Krishnappa Gowtham",iplWickets[0].playerName);
         } catch (IPLAnalyserException e) {
