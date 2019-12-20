@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 
 public abstract class IPLAdapter {
-    private Map<String,IPLDAO> iplRunsMap;
+    public Map<String,IPLDAO> iplRunsMap;
 
     public IPLAdapter() {
         this.iplRunsMap = new HashMap<>();

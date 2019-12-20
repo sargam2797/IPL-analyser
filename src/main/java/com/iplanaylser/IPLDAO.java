@@ -1,6 +1,12 @@
 package com.iplanaylser;
 
 public class IPLDAO {
+    public double strikeRateBowler;
+    public int foursWicketBowler;
+    public int fiveWicketBowler;
+    public int runsBowler;
+    public double oversBowler;
+   public double averageBowler;
     public String playerName;
     public int matchPlayed;
     public double average;
@@ -28,12 +34,12 @@ public class IPLDAO {
     public IPLDAO(IPLWickets next) {
         this.playerName = next.playerName;
         this.matchPlayed = next.matchesPlayed;
-        this.average = next.average;
-        this.strikeRate = next.strikeRate;
-        this.fours = next.fourWickets;
-        this.five = next.fiveWickets;
-        this.runs = next.runs;
-        this.overs =  next.overs;
+        this.averageBowler = next.average;
+        this.strikeRateBowler = next.strikeRate;
+        this.foursWicketBowler = next.fourWickets;
+        this.fiveWicketBowler = next.fiveWickets;
+        this.runsBowler = next.runs;
+        this.oversBowler =  next.overs;
         this.wickets = next.wickets;
         this.economy = next.economy;
     }
@@ -42,6 +48,6 @@ public class IPLDAO {
         if (innings.equals(IPLAnalyser.Innings.BATTING))
             return new IPLRuns(this.playerName,this.matchPlayed,this.average,this.strikeRate,this.fours,this.sixes,
                     this.runs,this.ballsFaced);
-        return new IPLWickets(this.playerName,this.matchPlayed,this.average,this.strikeRate,this.fours,this.five,
-                this.runs,this.overs,this.wickets,this.economy);
+        return new IPLWickets(this.playerName,this.matchPlayed,this.averageBowler,this.strikeRateBowler,
+                this.foursWicketBowler,this.fiveWicketBowler,this.runsBowler,this.oversBowler,this.wickets,this.economy);
     }}
