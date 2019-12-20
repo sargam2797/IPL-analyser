@@ -42,4 +42,5 @@ public class IPLAnalyser {
         String sortIplToJson = new Gson().toJson(getDTO);
         return sortIplToJson;
     }
+
 }
