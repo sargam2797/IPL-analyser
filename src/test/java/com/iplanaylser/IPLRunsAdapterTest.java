@@ -8,10 +8,8 @@ import java.util.Map;
 public class IPLRunsAdapterTest {
     private static final String IPL_MOST_RUNS_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/resources" +
             "/IPL2019FactsheetMostRuns.csv";
-
     private static final String IPL_MOST_RUNS_WRONG_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/" +
             "resources/IPL2019FactsheetMostRuns1.csv";
-
     private static final String IPL_MOST_RUNS_WRONG_EXT_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/" +
             "resources/IPL2019FactsheetMostRuns.txt";
     private static final String IPL_MOST_RUNS_DELIMITER_CSV_FILE_PATH = "/home/admin1/Downloads/IPL-analyser-master/src/" +
