@@ -4,12 +4,17 @@ import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Map;
+
 public class IPLAnalyserTest {
 
     private static final String SAMPLE_IPL_DATA_CSV_PATH = "/home/admin1/IPL-Analyser/IPL-analyser/src/test/resources/" +
             "sampleIPLData.csv";
     private static final String IPL_MOST_RUNS_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/resources" +
             "/IPL2019FactsheetMostRuns.csv";
+    private static final String SAMPLE_IPL_WICKETS_DATA_CSV_PATH = "/home/admin1/IPL-Analyser/IPL-analyser/src/test/" +
+            "resources/sampleWickets.csv";
+
 
     @Test
     public void givenIPLMostRunsSampleData_ShouldReturnHighestThePlayerWithHighestBattingAverage() {
@@ -162,6 +167,28 @@ public class IPLAnalyserTest {
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.MAX_RUNS_WITH_BEST_AVERAGE);
             IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
             Assert.assertEquals("David Warner ",iplRuns[0].player);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPLMostRunsData_ReturnsExactNoOfPlayersCount() {
+        try {
+            Map playerCount = new IPLWicketAdapter().loadIPLData(IPLAnalyser.Innings.BOWLING, SAMPLE_IPL_WICKETS_DATA_CSV_PATH);
+            Assert.assertEquals(7,playerCount.size());
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenIPLMostWicketsSampleData_ShouldReturnThePlayerWithTopBowlingAverage() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
+            iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,SAMPLE_IPL_WICKETS_DATA_CSV_PATH);
+            String sortByAverage = iplAnalyser.sortByFields(SortingFields.AVERAGE);
+            IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
+            Assert.assertEquals("Krishnappa Gowtham",iplWickets[0].playerName);
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
         }

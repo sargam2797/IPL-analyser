@@ -42,6 +42,6 @@ public class IPLDAO {
         if (innings.equals(IPLAnalyser.Innings.BATTING))
             return new IPLRuns(this.playerName,this.matchPlayed,this.average,this.strikeRate,this.fours,this.sixes,
                     this.runs,this.ballsFaced);
-        return new IPLWickets(this.playerName,this.matchPlayed,this.average,this.strikeRate,this.fours,this.five,this.runs,
-                this.overs,this.wickets,this.economy);
+        return new IPLWickets(this.playerName,this.matchPlayed,this.average,this.strikeRate,this.fours,this.five,
+                this.runs,this.overs,this.wickets,this.economy);
     }}

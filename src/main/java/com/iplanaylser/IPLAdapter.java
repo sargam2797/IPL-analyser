@@ -25,17 +25,17 @@ public abstract class IPLAdapter {
     public <T>Map loadIPLData(Class<T> iplClass,String csvFilePath) throws IPLAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));){
             ICSvBuilder csvBuilder = CSVBuilderFactory.createCsvBuilder();
-            Iterator<T> iplCSVIterator = csvBuilder.getFileByIterator(reader, IPLRuns.class);
+            Iterator<T> iplCSVIterator = csvBuilder.getFileByIterator(reader, iplClass);
             Iterable<T> csvIterable = () -> iplCSVIterator;
-            if (iplClass.getName().equals("com.iplanaylser.Batting")) {
+            if (iplClass.getName().equals("com.iplanaylser.IPLRuns")) {
                 StreamSupport.stream(csvIterable.spliterator(),false)
                         .map(IPLRuns.class::cast)
-                        .forEach(iplRunsDao -> this.iplRunsMap.put(iplRunsDao.player,  new IPLDAO(iplRunsDao)));
+                        .forEach(iplRuns -> this.iplRunsMap.put(iplRuns.player,  new IPLDAO(iplRuns)));
             }
-            if (iplClass.getName().equals("com.iplanaylser.Bowling")) {
+            if (iplClass.getName().equals("com.iplanaylser.IPLWickets")) {
                 StreamSupport.stream(csvIterable.spliterator(),false)
                         .map(IPLWickets.class::cast)
-                        .forEach(iplRunsDao -> this.iplRunsMap.put(iplRunsDao.playerName,  new IPLDAO(iplRunsDao)));
+                        .forEach(iplWickets -> this.iplRunsMap.put(iplWickets.playerName,  new IPLDAO(iplWickets)));
             }
             return iplRunsMap;
         } catch (IOException e) {
