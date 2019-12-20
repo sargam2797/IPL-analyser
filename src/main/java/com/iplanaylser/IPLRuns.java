@@ -3,10 +3,22 @@ package com.iplanaylser;
 import com.opencsv.bean.CsvBindByName;
 
 public class IPLRuns {
-    public IPLRuns(String playerName, int matchPlayed, double average, double strikeRate, int numberOf4sScored, int numberOf6sScored) {
-    }
 
     public IPLRuns() {
+    }
+
+    public IPLRuns(String playerName, int matchPlayed, double average, double strikeRate, int fours, int sixes,
+                   int runs, int ballsFaced) {
+        this.player = playerName;
+        this.match = matchPlayed;
+        this.avg = average;
+        this.strikeRate = strikeRate;
+        this.fours = fours;
+        this.sixes = sixes;
+        this.runs = runs;
+        this.ballFaced = ballsFaced;
+        this.fours = fours;
+        this.sixes = sixes;
     }
 
     @CsvBindByName(column = "POS")
@@ -66,15 +78,6 @@ public class IPLRuns {
         this.fiftys = iplRuns.fiftys;
         this.fours = iplRuns.fours;
         this.sixes = iplRuns.sixes;
-    }
-    public IPLRuns(IPLDAO ipldao) {
-
-        this.match = ipldao.matchPlayed;
-        this.fours = ipldao.numberOfFours;
-        this.sixes = ipldao.numberOfSixes;
-        this.avg = ipldao.average;
-        this.player = ipldao.playerName;
-        this.strikeRate = ipldao.strikeRate;
     }
 
 }
