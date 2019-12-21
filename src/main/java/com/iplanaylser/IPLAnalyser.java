@@ -45,6 +45,9 @@ public class IPLAnalyser {
                 +census.bowlersWith5Wickets);
         this.sortByFields.put(SortingFields.TOP_BOWLING_STRIKING_RATES_WITH_MOST_4Ws_AND_5Ws,
                 comparatorForBowler.thenComparing(compare -> compare.strikeRatesOfBowler).reversed());
+        Comparator<IPLDAO> comparatorForBestAverageBowler = Comparator.comparing(compare -> compare.averageOfBowler);
+        this.sortByFields.put(SortingFields.GREAT_AVERAGE_WITH_BEST_STRIKING_RATE,
+                comparatorForBestAverageBowler.thenComparing(compare -> compare.strikeRatesOfBowler));
     }
 
     public int loadIPLData(Innings innings,String csvFilePath) throws IPLAnalyserException {
