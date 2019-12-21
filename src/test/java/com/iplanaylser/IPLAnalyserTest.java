@@ -233,4 +233,17 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPLMostWicketsSampleData_ShouldReturnThePlayerWithGreatAverage_WithBestStrikingRAte() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
+            iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,SAMPLE_IPL_WICKETS_DATA_CSV_PATH);
+            String sortByAverage = iplAnalyser.sortByFields(SortingFields.BEST_AVERAGE_WITH_STRIKE_RATE);
+            IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
+            Assert.assertEquals("Ben Stokes",iplWickets[0].playerName);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
