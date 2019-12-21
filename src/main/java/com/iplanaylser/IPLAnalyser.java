@@ -26,21 +26,21 @@ public class IPLAnalyser {
                 census.average, Comparator.reverseOrder()));
         this.sortByFields.put(SortingFields.STRIKING_RATE, Comparator.comparing(census ->
                 census.strikeRate, Comparator.reverseOrder()));
-        this.sortByFields.put(SortingFields.MAX_4s_AND_6s, Comparator.comparing(census -> (census.fours *4+census
-                .sixes *6), Comparator.reverseOrder()));
+        this.sortByFields.put(SortingFields.MAX_4s_AND_6s, Comparator.comparing(census -> (census.numberOf4sScored *4+census
+                .numberOf6sScored *6), Comparator.reverseOrder()));
         this.sortByFields.put(SortingFields.MAX_4s_AND_6s_WITH_BEST_STRIKING_RATE, Comparator.comparing(census ->
-                ((census.fours *4+census.sixes *6))/(census.ballsFaced), Comparator.reverseOrder()));
+                ((census.numberOf4sScored *4+census.numberOf6sScored *6))/(census.ballFaced), Comparator.reverseOrder()));
         Comparator<IPLDAO> comparatorForAverage = Comparator.comparing(compare -> compare.average);
         this.sortByFields.put(SortingFields.BEST_AVERAGE_WITH_STRIKE_RATE, comparatorForAverage.thenComparing(compare ->
                 compare.strikeRate).reversed());
-        Comparator<IPLDAO> comparatorForRuns = Comparator.comparing(compare -> compare.runs);
+        Comparator<IPLDAO> comparatorForRuns = Comparator.comparing(compare -> compare.runsScored);
         this.sortByFields.put(SortingFields.MAX_RUNS_WITH_BEST_AVERAGE, comparatorForRuns.thenComparing(compare ->
                 compare.average).reversed());
-
-        this.sortByFields.put(SortingFields.BOWLING_AVERAGE, Comparator.comparing(census -> census.averageBowler));
-        Comparator<IPLDAO> foursAndFives = Comparator.comparing(census -> (census.fours *4+census.five *5));
-        this.sortByFields.put(SortingFields.BOWLING_STRIKING_RATES_WITH_MOST_4W_AND_5W,foursAndFives.thenComparing
-                (compare -> compare.strikeRateBowler));
+        this.sortByFields.put(SortingFields.BOWLING_AVERAGE, Comparator.comparing(census -> census.averageOfBowler));
+        this.sortByFields.put(SortingFields.TOP_BOWLING_STRIKING_RATES, Comparator.comparing(census ->
+                census.strikeRatesOfBowler));
+        this.sortByFields.put(SortingFields.TOP_BOWLING_ECONOMY_RATES, Comparator.comparing(census ->
+                census.economyOfBowler));
     }
 
     public int loadIPLData(Innings innings,String csvFilePath) throws IPLAnalyserException {

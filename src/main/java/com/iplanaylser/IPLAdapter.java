@@ -30,7 +30,7 @@ public abstract class IPLAdapter {
             if (iplClass.getName().equals("com.iplanaylser.IPLRuns")) {
                 StreamSupport.stream(csvIterable.spliterator(),false)
                         .map(IPLRuns.class::cast)
-                        .forEach(iplRuns -> this.iplRunsMap.put(iplRuns.player,  new IPLDAO(iplRuns)));
+                        .forEach(iplRuns -> this.iplRunsMap.put(iplRuns.playerName,  new IPLDAO(iplRuns)));
             }
             if (iplClass.getName().equals("com.iplanaylser.IPLWickets")) {
                 StreamSupport.stream(csvIterable.spliterator(),false)

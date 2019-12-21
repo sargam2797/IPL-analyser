@@ -3,66 +3,57 @@ package com.iplanaylser;
 import com.opencsv.bean.CsvBindByName;
 
 public class IPLWickets {
+    @CsvBindByName(column = "POS")
+    public int position;
+
+    @CsvBindByName(column = "PLAYER")
+    public String playerName;
+
+    @CsvBindByName(column = "Mat")
+    public int matchesPlayed;
+
+    @CsvBindByName(column = "Inns")
+    public int inningsPlayed;
+
+    @CsvBindByName(column = "Ov")
+    public double oversThrown;
+
+    @CsvBindByName(column = "Runs")
+    public int runsGiven;
+
+    @CsvBindByName(column = "Wkts")
+    public int wicketsTaken;
+
+    @CsvBindByName(column = "BBI")
+    public String bbI;
+
+    @CsvBindByName(column = "Avg")
+    public double avgOfBowler;
+
+    @CsvBindByName(column = "Econ")
+    public double economyOfBowler;
+
+    @CsvBindByName(column = "SR")
+    public double strikeRateOfBowler;
+
+    @CsvBindByName(column = "4w")
+    public int wickets4Taken;
+
+    @CsvBindByName(column = "5w")
+    public int wickets5Taken;
+
     public IPLWickets() {
     }
 
-    @CsvBindByName(column = "POS")
-    public int position;
-    @CsvBindByName(column = "PLAYER")
-    public String playerName;
-    @CsvBindByName(column = "Mat")
-    public int matchesPlayed;
-    @CsvBindByName(column = "Inns")
-    public int innings;
-    @CsvBindByName(column = "Ov")
-    public double overs;
-    @CsvBindByName(column = "Runs")
-    public int runs;
-    @CsvBindByName(column = "BBI")
-    public int bbi;
-    @CsvBindByName(column = "Wkts")
-    public int wickets;
-    @CsvBindByName(column = "Econ")
-    public double economy;
-    @CsvBindByName(column = "Avg")
-    public double average;
-    @CsvBindByName(column = "SR")
-    public double strikeRate;
-    @CsvBindByName(column = "4w")
-    public int fourWickets;
-    @CsvBindByName(column = "5w")
-    public int fiveWickets;
-
-    public IPLWickets(String playerName, int matchPlayed, double average, double strikeRate, int fours, int five, int runs,
-                      double overs, int wickets, double economy) {
+    public IPLWickets(String playerName, double averageOfBowler, double strikeRateOfBowler,
+                         double economyOfBowler, int bowlersWith4Wickets, int bowlersWith5Wickets,
+                         int wicketsTaken) {
         this.playerName = playerName;
-        this.matchesPlayed = matchPlayed;
-        this.average = average;
-        this.strikeRate = strikeRate;
-        this.fourWickets = fours;
-        this.fiveWickets = five;
-        this.runs = runs;
-        this.overs = overs;
-        this.wickets = wickets;
-        this.economy = economy;
-    }
-
-    @Override
-    public String toString() {
-        return "Bowling{" +
-                "position=" + position +
-                ", playerName='" + playerName + '\'' +
-                ", matchesPlayed=" + matchesPlayed +
-                ", innings=" + innings +
-                ", overs=" + overs +
-                ", runs=" + runs +
-                ", wickets=" + wickets +
-                ", bbi=" +bbi+
-                ", economy=" + economy +
-                ", average=" + average +
-                ", strikeRate=" + strikeRate +
-                ", fourWickets=" + fourWickets +
-                ", fiveWickets=" + fiveWickets +
-                '}';
+        this.avgOfBowler = averageOfBowler;
+        this.strikeRateOfBowler = strikeRateOfBowler;
+        this.economyOfBowler = economyOfBowler;
+        this.wickets4Taken = bowlersWith4Wickets;
+        this.wickets5Taken = bowlersWith5Wickets;
+        this.wicketsTaken = wicketsTaken;
     }
 }

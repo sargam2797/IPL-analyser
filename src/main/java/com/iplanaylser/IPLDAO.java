@@ -1,53 +1,48 @@
 package com.iplanaylser;
 
 public class IPLDAO {
-    public double strikeRateBowler;
-    public int foursWicketBowler;
-    public int fiveWicketBowler;
-    public int runsBowler;
-    public double oversBowler;
-   public double averageBowler;
     public String playerName;
     public int matchPlayed;
+    public int runsScored;
     public double average;
+    public int ballFaced;
     public double strikeRate;
-    public int fours;
-    public int sixes;
-    public int five;
-    public int runs;
-    public int ballsFaced;
-    public double overs;
-    public int wickets;
-    public double economy;
+    public int numberOf4sScored;
+    public int numberOf6sScored;
+    public double averageOfBowler;
+    public double strikeRatesOfBowler;
+    public double economyOfBowler;
+    public int bowlersWith4Wickets;
+    public int bowlersWith5Wickets;
+    public int wicketsTaken;
 
     public IPLDAO(IPLRuns next) {
-        this.playerName = next.player;
-        this.matchPlayed = next.match;
-        this.average = next.avg;
-        this.strikeRate = next.strikeRate;
-        this.fours = next.fours;
-        this.sixes = next.sixes;
-        this.runs = next.runs;
-        this.ballsFaced =  next.ballFaced;
+        playerName = next.playerName;
+        matchPlayed = next.matchPlayed;
+        average = next.average;
+        runsScored = next.runsScored;
+        strikeRate = next.strikeRate;
+        numberOf4sScored = next.numberOf4sScored;
+        numberOf6sScored = next.numberOf6sScored;
+        ballFaced = next.ballFaced;
     }
 
     public IPLDAO(IPLWickets next) {
-        this.playerName = next.playerName;
-        this.matchPlayed = next.matchesPlayed;
-        this.averageBowler = next.average;
-        this.strikeRateBowler = next.strikeRate;
-        this.foursWicketBowler = next.fourWickets;
-        this.fiveWicketBowler = next.fiveWickets;
-        this.runsBowler = next.runs;
-        this.oversBowler =  next.overs;
-        this.wickets = next.wickets;
-        this.economy = next.economy;
+        playerName = next.playerName;
+        averageOfBowler = next.avgOfBowler;
+        strikeRatesOfBowler = next.strikeRateOfBowler;
+        economyOfBowler = next.economyOfBowler;
+        bowlersWith4Wickets = next.wickets4Taken;
+        bowlersWith5Wickets = next.wickets5Taken;
+        wicketsTaken = next.wicketsTaken;
     }
 
     public Object getIPLDTO(IPLAnalyser.Innings innings) {
-        if (innings.equals(IPLAnalyser.Innings.BATTING))
-            return new IPLRuns(this.playerName,this.matchPlayed,this.average,this.strikeRate,this.fours,this.sixes,
-                    this.runs,this.ballsFaced);
-        return new IPLWickets(this.playerName,this.matchPlayed,this.averageBowler,this.strikeRateBowler,
-                this.foursWicketBowler,this.fiveWicketBowler,this.runsBowler,this.oversBowler,this.wickets,this.economy);
-    }}
+        if (innings.equals(IPLAnalyser.Innings.BATTING)) {
+            return new IPLRuns(playerName, matchPlayed, average,
+                    runsScored, strikeRate, numberOf4sScored, numberOf6sScored);
+        }
+        return new IPLWickets(playerName, averageOfBowler, strikeRatesOfBowler, economyOfBowler,
+                bowlersWith4Wickets, bowlersWith5Wickets, wicketsTaken);
+       }
+}
