@@ -220,4 +220,17 @@ public class IPLAnalyserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPLMostWicketsSampleData_ShouldReturnThePlayerWithTopStrikingRates_WithMost4wAnd5w() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
+            iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,SAMPLE_IPL_WICKETS_DATA_CSV_PATH);
+            String sortByAverage = iplAnalyser.sortByFields(SortingFields.TOP_BOWLING_STRIKING_RATES_WITH_MOST_4Ws_AND_5Ws);
+            IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
+            Assert.assertEquals("Ishant Sharma",iplWickets[0].playerName);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
