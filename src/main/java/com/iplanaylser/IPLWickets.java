@@ -46,8 +46,8 @@ public class IPLWickets {
     }
 
     public IPLWickets(String playerName, double averageOfBowler, double strikeRateOfBowler,
-                         double economyOfBowler, int bowlersWith4Wickets, int bowlersWith5Wickets,
-                         int wicketsTaken) {
+                      double economyOfBowler, int bowlersWith4Wickets, int bowlersWith5Wickets,
+                      int wicketsTaken) {
         this.playerName = playerName;
         this.avgOfBowler = averageOfBowler;
         this.strikeRateOfBowler = strikeRateOfBowler;

@@ -4,8 +4,7 @@ public class IPLDAO {
     public String playerName;
     public int matchPlayed;
     public int runsScored;
-    public double average;
-    public int ballFaced;
+    public double averageOfBatsmen;
     public double strikeRate;
     public int numberOf4sScored;
     public int numberOf6sScored;
@@ -15,16 +14,17 @@ public class IPLDAO {
     public int bowlersWith4Wickets;
     public int bowlersWith5Wickets;
     public int wicketsTaken;
+    public int ballsFaced;
 
     public IPLDAO(IPLRuns next) {
         playerName = next.playerName;
         matchPlayed = next.matchPlayed;
-        average = next.average;
+        averageOfBatsmen = next.averageOfBatsmen;
         runsScored = next.runsScored;
         strikeRate = next.strikeRate;
         numberOf4sScored = next.numberOf4sScored;
         numberOf6sScored = next.numberOf6sScored;
-        ballFaced = next.ballFaced;
+        ballsFaced = next.ballFaced;
     }
 
     public IPLDAO(IPLWickets next) {
@@ -37,12 +37,17 @@ public class IPLDAO {
         wicketsTaken = next.wicketsTaken;
     }
 
-    public Object getIPLDTO(IPLAnalyser.Innings innings) {
-        if (innings.equals(IPLAnalyser.Innings.BATTING)) {
-            return new IPLRuns(playerName, matchPlayed, average,
-                    runsScored, strikeRate, numberOf4sScored, numberOf6sScored);
-        }
-        return new IPLWickets(playerName, averageOfBowler, strikeRatesOfBowler, economyOfBowler,
-                bowlersWith4Wickets, bowlersWith5Wickets, wicketsTaken);
-       }
+    public IPLDAO(IPLDAO iplCSV) {
+
+    }
+
+    public Object getStatsDTO(IPLAnalyser.Innings innings) {
+        if (innings.equals(IPLAnalyser.Innings.BATTING)) return new IPLRuns(playerName, matchPlayed, averageOfBatsmen,
+                runsScored, strikeRate, numberOf4sScored, numberOf6sScored);
+        if (innings.equals(IPLAnalyser.Innings.BOWLING))
+            return new IPLWickets(playerName, averageOfBowler, strikeRatesOfBowler, economyOfBowler,
+                    bowlersWith4Wickets, bowlersWith5Wickets, wicketsTaken);
+        return null;
+    }
+
 }

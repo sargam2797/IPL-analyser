@@ -20,7 +20,7 @@ public abstract class IPLAdapter {
         this.iplRunsMap = new HashMap<>();
     }
 
-    public abstract Map loadIPLData(IPLAnalyser.Innings innings, String csvFilePath) throws IPLAnalyserException;
+    public abstract Map loadIPLData(IPLAnalyser.Innings innings, String... csvFilePath) throws IPLAnalyserException;
 
     public <T>Map loadIPLData(Class<T> iplClass,String csvFilePath) throws IPLAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));){

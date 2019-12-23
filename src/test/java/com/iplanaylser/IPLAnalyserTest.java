@@ -4,14 +4,9 @@ import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Map;
-
 public class IPLAnalyserTest {
-
-    private static final String IPL_MOST_RUNS_CSV_FILE_PATH = "/home/user/IdeaProjects/IPL-analyser/src/test/resources" +
+    private static final String IPL_MOST_RUNS_CSV_FILE_PATH = "/home/admin1/IPL-Analyser/IPL-analyser/src/test/resources" +
             "/IPL2019FactsheetMostRuns.csv";
-    private static final String SAMPLE_IPL_WICKETS_DATA_CSV_PATH = "/home/admin1/IPL-Analyser/IPL-analyser/src/test/" +
-            "resources/SampleWkts.csv";
     private static final String IPL_WICKETS_DATA_CSV_PATH = "/home/admin1/IPL-Analyser/IPL-analyser/src/test/resources/" +
             "IPL2019FactsheetMostWkts.csv";
 
@@ -20,7 +15,7 @@ public class IPLAnalyserTest {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH);
-            String sortByAverage = iplAnalyser.sortByFields(SortingFields.AVERAGE);
+            String sortByAverage = iplAnalyser.sortByFields(SortingFields.BATTING_AVERAGE);
             IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
             Assert.assertEquals("MS Dhoni",iplRuns[0].playerName);
         } catch (IPLAnalyserException e) {
@@ -107,7 +102,7 @@ public class IPLAnalyserTest {
     }
 
     @Test
-    public void givenIPLMostWicketsSampleData_ShouldReturnThePlayerWithTopStrikingRatesBowler() {
+    public void givenIPLMostWicketsData_ShouldReturnThePlayerWithTopStrikingRatesBowler() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_DATA_CSV_PATH);
@@ -120,7 +115,7 @@ public class IPLAnalyserTest {
     }
 
     @Test
-    public void givenIPLMostWicketsSampleData_ShouldReturnThePlayerWithTopBowlingEconomyRates() {
+    public void givenIPLMostWicketsData_ShouldReturnThePlayerWithTopBowlingEconomyRates() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_DATA_CSV_PATH);
@@ -133,7 +128,7 @@ public class IPLAnalyserTest {
     }
 
     @Test
-    public void givenIPLMostWicketsSampleData_ShouldReturnThePlayerWithTopStrikingRates_WithMost4wAnd5w() {
+    public void givenIPLMostWicketsData_ShouldReturnThePlayerWithTopStrikingRates_WithMost4wAnd5w() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_DATA_CSV_PATH);
@@ -146,13 +141,27 @@ public class IPLAnalyserTest {
     }
 
     @Test
-    public void givenIPLMostWicketsSampleData_ShouldReturnThePlayerWithGreatAverage_WithBestStrikingRAte() {
+    public void givenIPLMostWicketsData_ShouldReturnThePlayerWithBestBowlingAndBattingAverage() {
         try {
-            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
-            iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_DATA_CSV_PATH);
-            String sortByAverage = iplAnalyser.sortByFields(SortingFields.BEST_AVERAGE_WITH_STRIKE_RATE);
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
+            iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH,IPL_WICKETS_DATA_CSV_PATH);
+            String sortByAverage = iplAnalyser.sortByFields(SortingFields.BEST_BATTING_BOWLING_AVERAGE);
             IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
-            Assert.assertEquals("Umesh Yadav",iplWickets[0].playerName);
+            Assert.assertEquals("Andre Russell",iplWickets[0].playerName);
+        } catch (IPLAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPLMostWicketsData_ShouldReturnThePlayerWhoIsAllRounder() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
+            iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH,
+                    IPL_WICKETS_DATA_CSV_PATH);
+            String sortByAverage = iplAnalyser.sortByFields(SortingFields.ALL_ROUNDER);
+            IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
+            Assert.assertEquals("Hardik Pandya",iplWickets[0].playerName);
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
         }

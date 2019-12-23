@@ -7,26 +7,26 @@ public class IPLRuns {
     @CsvBindByName(column = "POS")
     public int position;
 
-    @CsvBindByName(column = "PLAYER", required = true)
+    @CsvBindByName(column = "PLAYER")
     public String playerName;
 
-    @CsvBindByName(column = "Mat", required = true)
+    @CsvBindByName(column = "Mat")
     public int matchPlayed;
 
-    @CsvBindByName(column = "Inns", required = true)
+    @CsvBindByName(column = "Inns")
     public int inningsPlayed;
 
-    @CsvBindByName(column = "NO", required = true)
+    @CsvBindByName(column = "NO")
     public int notOut;
 
-    @CsvBindByName(column = "Runs", required = true)
+    @CsvBindByName(column = "Runs")
     public int runsScored;
 
-    @CsvBindByName(column = "HS", required = true)
+    @CsvBindByName(column = "HS")
     public String highestScored;
 
-    @CsvBindByName(column = "Avg", required = true)
-    public double average;
+    @CsvBindByName(column = "Avg")
+    public double averageOfBatsmen;
 
     @CsvBindByName(column = "BF")
     public int ballFaced;
@@ -49,14 +49,13 @@ public class IPLRuns {
     public IPLRuns() {
     }
 
-
-    public IPLRuns(String playerName, int matchPlayed, double average, int runsScored, double strikeRate, int numberOf4sScored, int numberOf6sScored) {
-        this.playerName=playerName;
-        this.matchPlayed=matchPlayed;
-        this.average=average;
-        this.runsScored=runsScored;
-        this.strikeRate=strikeRate;
-        this.numberOf4sScored=numberOf4sScored;
-        this.numberOf6sScored=numberOf6sScored;
+    public IPLRuns(String playerName, int matchPlayed, double averageOfBatsmen, int runsScored, double strikeRate, int numberOf4sScored, int numberOf6sScored) {
+        this.playerName = playerName;
+        this.matchPlayed = matchPlayed;
+        this.averageOfBatsmen = averageOfBatsmen;
+        this.runsScored = runsScored;
+        this.strikeRate = strikeRate;
+        this.numberOf4sScored = numberOf4sScored;
+        this.numberOf6sScored = numberOf6sScored;
     }
 }
