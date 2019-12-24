@@ -22,10 +22,11 @@ public class IPLAnalyser {
         this.innings = innings;
         sortingForIPL = new SortingForIPL();
     }
-    //public IPLAnalyser() {}
 
+    public IPLAnalyser() {
+    }
 
-    public int loadIPLData(Innings innings,String... csvFilePath) throws IPLAnalyserException {
+    public int loadIPLData(Innings innings, String... csvFilePath) throws IPLAnalyserException {
         this.iplMap = this.iplAdapter.loadIPLData(innings, csvFilePath);
         return this.iplMap.size();
     }

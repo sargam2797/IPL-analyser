@@ -33,7 +33,9 @@ public class IPLAdapterTest {
         try {
             create();
             when(iplAdapter.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_CSV_FILE)).thenReturn(this.map);
-            iplAdapter.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_CSV_FILE);
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.setIplAdapter(iplAdapter);
+            iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_CSV_FILE);
             Assert.assertEquals(3,map.size());
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
@@ -46,7 +48,9 @@ public class IPLAdapterTest {
         try {
             create();
             when(iplAdapter.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_CSV_FILE_PATH)).thenReturn(this.map);
-            iplAdapter.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_CSV_FILE_PATH);
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
+            iplAnalyser.setIplAdapter(iplAdapter);
+            iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_CSV_FILE_PATH);
             Assert.assertEquals(3,map.size());
         } catch (IPLAnalyserException e) {
             e.printStackTrace();
