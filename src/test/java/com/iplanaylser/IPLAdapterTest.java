@@ -18,7 +18,7 @@ public class IPLAdapterTest {
             "resources/IPL2019FactsheetMostWkts.csv";
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
-    private HashMap<Object, Object> map;
+    private HashMap<String, Object> map;
 
     public void create() {
         this.map = new HashMap<>();
@@ -29,11 +29,11 @@ public class IPLAdapterTest {
 
     @Test
     public void GivenIPLRunsData_WhenCorrect_ShouldReturnExactSize() {
-        IPLAdapter iplAdapter = mock(IPLLoaderProvider.getIPLObject(IPLAnalyser.Innings.BATTING).getClass());
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        IPLAdapter iplAdapter = mock(iplAnalyser.getAdapterObject(IPLAnalyser.Innings.BATTING).getClass());
         try {
             create();
             when(iplAdapter.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_CSV_FILE)).thenReturn(this.map);
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.setIPLAdapter(iplAdapter);
             int size = iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING, IPL_CSV_FILE);
             Assert.assertEquals(3,size);
@@ -44,11 +44,11 @@ public class IPLAdapterTest {
 
     @Test
     public void GivenIPLWicketsData_WhenCorrect_ShouldReturnExactSize() {
-        IPLAdapter iplAdapter = mock(IPLLoaderProvider.getIPLObject(IPLAnalyser.Innings.BOWLING).getClass());
+        IPLAnalyser iplAnalyser = new IPLAnalyser();
+        IPLAdapter iplAdapter = mock(iplAnalyser.getAdapterObject(IPLAnalyser.Innings.BATTING).getClass());
         try {
             create();
             when(iplAdapter.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_CSV_FILE_PATH)).thenReturn(this.map);
-            IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.setIPLAdapter(iplAdapter);
             int size = iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING, IPL_WICKETS_CSV_FILE_PATH);
             Assert.assertEquals(3,size);

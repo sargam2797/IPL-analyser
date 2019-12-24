@@ -5,13 +5,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class IPLAnalyser {
-     Map<String,IPLDAO> iplMap;
-     private Innings innings;
-     SortingForIPL sortingForIPL;
-     private IPLAdapter iplAdapter;
+    Map<String, IPLDAO> iplMap;
+    private Innings innings;
+    SortingForIPL sortingForIPL;
+    private IPLAdapter iplAdapter;
 
     public enum Innings {
-        BATTING,BOWLING
+        BATTING, BOWLING
     }
 
     public void setIPLAdapter(IPLAdapter adapter) {
@@ -19,7 +19,7 @@ public class IPLAnalyser {
     }
 
     public IPLAnalyser(Innings innings) {
-        this.innings = innings;
+        //this.innings = innings;
         sortingForIPL = new SortingForIPL();
     }
 
@@ -27,6 +27,7 @@ public class IPLAnalyser {
     }
 
     public int loadIPLData(Innings innings, String... csvFilePath) throws IPLAnalyserException {
+        this.innings = innings;
         this.iplMap = this.iplAdapter.loadIPLData(innings, csvFilePath);
         return this.iplMap.size();
     }
@@ -38,5 +39,9 @@ public class IPLAnalyser {
                 .collect(Collectors.toCollection(ArrayList::new));
         String sortIplToJson = new Gson().toJson(getDTO);
         return sortIplToJson;
+    }
+
+    public static IPLAdapter getAdapterObject(Innings innings) {
+        return IPLLoaderProvider.getClassAdapterObject(innings);
     }
 }
