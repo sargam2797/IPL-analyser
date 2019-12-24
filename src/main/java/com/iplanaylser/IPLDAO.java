@@ -41,6 +41,10 @@ public class IPLDAO {
 
     }
 
+    public IPLDAO(String abc, int i, double v) {
+
+    }
+
     public Object getStatsDTO(IPLAnalyser.Innings innings) {
         if (innings.equals(IPLAnalyser.Innings.BATTING)) return new IPLRuns(playerName, matchPlayed, averageOfBatsmen,
                 runsScored, strikeRate, numberOf4sScored, numberOf6sScored);
@@ -50,4 +54,23 @@ public class IPLDAO {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "IPLDAO{" +
+                "playerName='" + playerName + '\'' +
+                ", matchPlayed=" + matchPlayed +
+                ", runsScored=" + runsScored +
+                ", averageOfBatsmen=" + averageOfBatsmen +
+                ", strikeRate=" + strikeRate +
+                ", numberOf4sScored=" + numberOf4sScored +
+                ", numberOf6sScored=" + numberOf6sScored +
+                ", averageOfBowler=" + averageOfBowler +
+                ", strikeRatesOfBowler=" + strikeRatesOfBowler +
+                ", economyOfBowler=" + economyOfBowler +
+                ", bowlersWith4Wickets=" + bowlersWith4Wickets +
+                ", bowlersWith5Wickets=" + bowlersWith5Wickets +
+                ", wicketsTaken=" + wicketsTaken +
+                ", ballsFaced=" + ballsFaced +
+                '}';
+    }
 }

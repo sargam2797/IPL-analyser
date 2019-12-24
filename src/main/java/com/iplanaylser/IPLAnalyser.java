@@ -8,20 +8,25 @@ public class IPLAnalyser {
      Map<String,IPLDAO> iplMap;
      private Innings innings;
      SortingForIPL sortingForIPL;
+     IPLAdapter iplAdapter;
 
     public enum Innings {
         BATTING,BOWLING
+    }
+
+    public void setIplAdapter(IPLAdapter adapter) {
+        this.iplAdapter = adapter;
     }
 
     public IPLAnalyser(Innings innings) {
         this.innings = innings;
         sortingForIPL = new SortingForIPL();
     }
-    public IPLAnalyser() {}
+    //public IPLAnalyser() {}
+
 
     public int loadIPLData(Innings innings,String... csvFilePath) throws IPLAnalyserException {
-        IPLAdapter iplAdapter = IPLLoaderProvider.getIPLObject(innings);
-        this.iplMap = iplAdapter.loadIPLData(innings, csvFilePath);
+        this.iplMap = this.iplAdapter.loadIPLData(innings, csvFilePath);
         return this.iplMap.size();
     }
 

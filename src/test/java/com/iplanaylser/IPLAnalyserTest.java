@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.mockito.Mockito.mock;
+
 public class IPLAnalyserTest {
     private static final String IPL_MOST_RUNS_CSV_FILE_PATH = "/home/admin1/IPL-Analyser/IPL-analyser/src/test/resources" +
             "/IPL2019FactsheetMostRuns.csv";
@@ -14,6 +16,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostRunsData_ShouldReturnHighestThePlayerWithHighestBattingAverage() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
+            iplAnalyser.setIplAdapter(new IPLRunsAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.BATTING_AVERAGE);
             IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
@@ -27,6 +30,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostRunsData_ShouldReturnThePlayerWithHighestStrikingRate() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
+            iplAnalyser.setIplAdapter(new IPLRunsAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.STRIKING_RATE);
             IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
@@ -40,6 +44,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostRuns_ShouldReturnThePlayerWithHighest6sAnd4s() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
+            iplAnalyser.setIplAdapter(new IPLRunsAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.MAX_4s_AND_6s);
             IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
@@ -53,6 +58,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostRunsData_ShouldReturnThePlayerWithHighest6sAnd4s_WithBestStrikingRate() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
+            iplAnalyser.setIplAdapter(new IPLRunsAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.MAX_4s_AND_6s_WITH_BEST_STRIKING_RATE);
             IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
@@ -66,6 +72,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostRunsData_ShouldReturnThePlayerWithGreatAverage_WithBestStrikingRate() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
+            iplAnalyser.setIplAdapter(new IPLRunsAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.BEST_AVERAGE_WITH_STRIKE_RATE);
             IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
@@ -79,6 +86,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostRunsData_ShouldReturnThePlayerWithMaxRuns_WithBestAverage() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
+            iplAnalyser.setIplAdapter(new IPLRunsAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.MAX_RUNS_WITH_BEST_AVERAGE);
             IPLRuns[] iplRuns = new Gson().fromJson(sortByAverage, IPLRuns[].class);
@@ -92,6 +100,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostWicketsData_ShouldReturnThePlayerWithTopBowlingAverage() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
+            iplAnalyser.setIplAdapter(new IPLWicketAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_DATA_CSV_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.BOWLING_AVERAGE);
             IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
@@ -105,6 +114,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostWicketsData_ShouldReturnThePlayerWithTopStrikingRatesBowler() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
+            iplAnalyser.setIplAdapter(new IPLWicketAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_DATA_CSV_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.TOP_BOWLING_STRIKING_RATES);
             IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
@@ -118,6 +128,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostWicketsData_ShouldReturnThePlayerWithTopBowlingEconomyRates() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
+            iplAnalyser.setIplAdapter(new IPLWicketAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_DATA_CSV_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.TOP_BOWLING_ECONOMY_RATES);
             IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
@@ -131,6 +142,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostWicketsData_ShouldReturnThePlayerWithTopStrikingRates_WithMost4wAnd5w() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BOWLING);
+            iplAnalyser.setIplAdapter(new IPLWicketAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_DATA_CSV_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.TOP_BOWLING_STRIKING_RATES_WITH_MOST_4Ws_AND_5Ws);
             IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
@@ -144,6 +156,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostWicketsData_ShouldReturnThePlayerWithBestBowlingAndBattingAverage() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
+            iplAnalyser.setIplAdapter(new IPLRunsAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH,IPL_WICKETS_DATA_CSV_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.BEST_BATTING_BOWLING_AVERAGE);
             IPLWickets[] iplWickets = new Gson().fromJson(sortByAverage, IPLWickets[].class);
@@ -157,6 +170,7 @@ public class IPLAnalyserTest {
     public void givenIPLMostWicketsData_ShouldReturnThePlayerWhoIsAllRounder() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.Innings.BATTING);
+            iplAnalyser.setIplAdapter(new IPLRunsAdapter());
             iplAnalyser.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_MOST_RUNS_CSV_FILE_PATH,
                     IPL_WICKETS_DATA_CSV_PATH);
             String sortByAverage = iplAnalyser.sortByFields(SortingFields.ALL_ROUNDER);

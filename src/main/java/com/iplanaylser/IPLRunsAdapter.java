@@ -33,9 +33,9 @@ public class IPLRunsAdapter extends IPLAdapter {
             Iterable<IPLWickets> iplWicketsIterable = () -> iplWicketsIterator;
             StreamSupport.stream(iplWicketsIterable.spliterator(), false)
                     .filter(iplWickets -> ipldaoMap.get(iplWickets.playerName) != null)
-                    .forEach(iplBowlersCSV -> {
-                        ipldaoMap.get(iplBowlersCSV.playerName).averageOfBowler = iplBowlersCSV.avgOfBowler;
-                        ipldaoMap.get(iplBowlersCSV.playerName).wicketsTaken = iplBowlersCSV.wicketsTaken;
+                    .forEach(iplData -> {
+                        ipldaoMap.get(iplData.playerName).averageOfBowler = iplData.avgOfBowler;
+                        ipldaoMap.get(iplData.playerName).wicketsTaken = iplData.wicketsTaken;
                     });
             return ipldaoMap.size();
         } catch (IOException | CsvBuilderException e) {
