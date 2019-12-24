@@ -8,13 +8,13 @@ public class IPLAnalyser {
      Map<String,IPLDAO> iplMap;
      private Innings innings;
      SortingForIPL sortingForIPL;
-     IPLAdapter iplAdapter;
+     private IPLAdapter iplAdapter;
 
     public enum Innings {
         BATTING,BOWLING
     }
 
-    public void setIplAdapter(IPLAdapter adapter) {
+    public void setIPLAdapter(IPLAdapter adapter) {
         this.iplAdapter = adapter;
     }
 
