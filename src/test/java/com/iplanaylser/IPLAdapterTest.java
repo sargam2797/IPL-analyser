@@ -29,7 +29,7 @@ public class IPLAdapterTest {
 
     @Test
     public void GivenIPLRunsData_WhenCorrect_ShouldReturnExactSize() {
-        IPLAdapter iplAdapter = mock(IPLRunsAdapter.class);
+        IPLAdapter iplAdapter = mock(IPLLoaderProvider.getIPLObject(IPLAnalyser.Innings.BATTING).getClass());
         try {
             create();
             when(iplAdapter.loadIPLData(IPLAnalyser.Innings.BATTING,IPL_CSV_FILE)).thenReturn(this.map);
@@ -44,7 +44,7 @@ public class IPLAdapterTest {
 
     @Test
     public void GivenIPLWicketsData_WhenCorrect_ShouldReturnExactSize() {
-        IPLAdapter iplAdapter = mock(IPLWicketAdapter.class);
+        IPLAdapter iplAdapter = mock(IPLLoaderProvider.getIPLObject(IPLAnalyser.Innings.BOWLING).getClass());
         try {
             create();
             when(iplAdapter.loadIPLData(IPLAnalyser.Innings.BOWLING,IPL_WICKETS_CSV_FILE_PATH)).thenReturn(this.map);
